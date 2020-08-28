@@ -18,27 +18,34 @@ var sfxWrong = new Audio("assets/sfx/incorrect.wav");
 
 function startQuiz() {
   // hide start screen
- 
+    startBtn.classList.add("hide");
   // un-hide questions section
-
+    timerEl.classList.remove("hide");
   // start timer
-
+  createTimer();
   // show starting time
 
   getQuestion();
 }
 
 function getQuestion() {
+  if currentQuestionIndex
   // get current question object from array
-
+  
   // update title with current question
 
   // clear out any old question choices
+  questionCont.innerHTML = "";
+  choiceCont.innterHTMl = "";
 
   // loop over choices
-
+for (let i =0; i < questions[0].choices.length; i++){
+  let h2Choices = document.createElement("button");
+}
     // create new button for each choice
-
+    h2Choices.innerHTML = questions[currentQuestion].choices[i];
+    choiceCont.appendChild(h2Choices);
+    h2Choices.onclick = checkAnswer;
     // attach click event listener to each choice
 
     // display on the page
