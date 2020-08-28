@@ -1,16 +1,23 @@
 // variables to keep track of quiz state
 var currentQuestionIndex = 0;
-var time = questions.length * 15;
+var time = questions.length * 2;//CHANGE BACK TO 15
 var timerId;
+var timeLeft;
+
 
 // variables to reference DOM elements
 var questionsEl = document.getElementById("questions");
+var questionTitleEl = document.getElementById("question-title");
 var timerEl = document.getElementById("time");
 var choicesEl = document.getElementById("choices");
 var submitBtn = document.getElementById("submit");
 var startBtn = document.getElementById("start");
 var initialsEl = document.getElementById("initials");
 var feedbackEl = document.getElementById("feedback");
+var startScreenEl = document.getElementById("start-screen");
+var currentQuestion;
+// create user score var
+
 
 // sound effects
 var sfxRight = new Audio("assets/sfx/correct.wav");
@@ -18,41 +25,63 @@ var sfxWrong = new Audio("assets/sfx/incorrect.wav");
 
 function startQuiz() {
   // hide start screen
-    startBtn.classList.add("hide");
+    startScreenEl.classList.add("hide");
+
   // un-hide questions section
-    timerEl.classList.remove("hide");
+    questionsEl.classList.remove("hide");
+
   // start timer
-  createTimer();
+  timerId = setInterval(function (){
+      time--;
+  
+      if (time === 0) {
+        quizEnd();
+        
+      }
+
   // show starting time
+  timerEl.textContent = time;
+},1000)
 
   getQuestion();
 }
 
+// MY OWN FUNCTION I ADDED FOR THE TIMER TO KEEP IT SEPARATE
+// function createTimer(){
+
+// }
+
 function getQuestion() {
-  if currentQuestionIndex
-  // get current question object from array
-  
+  // get current question object from array, 
+  currentQuestion = questions[currentQuestionIndex];
   // update title with current question
-
-  // clear out any old question choices
-  questionCont.innerHTML = "";
-  choiceCont.innterHTMl = "";
-
+  questionTitleEl.textContent = currentQuestion.title;
   // loop over choices
-for (let i =0; i < questions[0].choices.length; i++){
-  let h2Choices = document.createElement("button");
-}
-    // create new button for each choice
-    h2Choices.innerHTML = questions[currentQuestion].choices[i];
-    choiceCont.appendChild(h2Choices);
-    h2Choices.onclick = checkAnswer;
+  for (var i =0; i < currentQuestion.choices.length; i++){
+    console.log(currentQuestion.choices[i]);
+// create new button for each choice
+    var addChoicesBtn = document.createElement("button");
+    addChoicesBtn.textContent = currentQuestion.choices[i];
+    choicesEl.appendChild(addChoicesBtn);
+  
+    // create new button for each choice --- this is from office hours but idk what it means
+    
     // attach click event listener to each choice
+    addChoicesBtn.onclick = questionClick;
+  }
 
     // display on the page
-}
+
+  }
+
 
 function questionClick() {
-  // check if user guessed wrong
+  
+  // check if user guessed wrong (event.target class activity) 
+
+  //check if textContent of targeted button is === answer from array 
+  //if event matches, add 10 points
+
     // penalize time
 
     // display new time on page
@@ -65,7 +94,7 @@ function questionClick() {
 
   // flash right/wrong feedback on page for half a second
 
-  // move to next question
+  // move to next question (currentQ I ++)
 
   // check if we've run out of questions
     // quizEnd
@@ -75,19 +104,22 @@ function questionClick() {
 
 function quizEnd() {
   // stop timer
+  clearInterval(timerId);
 
-  // show end screen
 
-  // show final score
+  // show end screen change classes on div to hide and end screen show 
+
+  // show final score .textContent
 
   // hide questions section
 }
 
-function clockTick() {
-  // update time
+// deleted this because its redundant
+// function clockTick() {
+//   // update time
 
-  // check if user ran out of time
-}
+//   // check if user ran out of time
+// }
 
 function saveHighscore() {
   // get value of input box
@@ -99,7 +131,7 @@ function saveHighscore() {
 
     // save to localstorage
 
-    // redirect to next page
+    // redirect to next page scores html
 }
 
 function checkForEnter(event) {
