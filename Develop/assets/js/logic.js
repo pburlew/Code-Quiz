@@ -15,7 +15,9 @@ var startBtn = document.getElementById("start");
 var initialsEl = document.getElementById("initials");
 var feedbackEl = document.getElementById("feedback");
 var startScreenEl = document.getElementById("start-screen");
+// var addChoicesBtn = document.createElement("button");
 var currentQuestion;
+var userAnswer;
 // create user score var
 
 
@@ -63,11 +65,13 @@ function getQuestion() {
     var addChoicesBtn = document.createElement("button");
     addChoicesBtn.textContent = currentQuestion.choices[i];
     choicesEl.appendChild(addChoicesBtn);
+
+    addChoicesBtn.onclick = questionClick;
   
     // create new button for each choice --- this is from office hours but idk what it means
     
     // attach click event listener to each choice
-    addChoicesBtn.onclick = questionClick;
+    // addChoicesBtn.onclick = questionClick();
   }
 
     // display on the page
@@ -75,31 +79,45 @@ function getQuestion() {
   }
 
 
-function questionClick() {
-  
+function questionClick(event) {
+  console.log(event.target.textContent);
   // check if user guessed wrong (event.target class activity) 
+  if (event.target.textContent === currentQuestion.answer){
 
-  //check if textContent of targeted button is === answer from array 
-  //if event matches, add 10 points
+    // play "right" sound effect
+    var snd = Audio("correct.wav"); 
+      snd.play();
 
+      // add 10 points
+
+
+  }
+
+  
+ // else 
     // penalize time
 
     // display new time on page
 
     // play "wrong" sound effect
-
-  // else 
-    // play "right" sound effect
-
+    var snd = Audio("incorrect.wav"); 
+      snd.play();
 
   // flash right/wrong feedback on page for half a second
 
   // move to next question (currentQ I ++)
+  currentQuestionIndex++;
 
   // check if we've run out of questions
+  if (currentQuestionIndex === currentQuestion.length){
     // quizEnd
-  // else 
-    // getQuestion
+    quizEnd;
+  }
+  // else getQ again
+  else{
+    getQuestion;
+  }
+    
 }
 
 function quizEnd() {
@@ -144,5 +162,7 @@ submitBtn.onclick = saveHighscore;
 
 // user clicks button to start quiz
 startBtn.onclick = startQuiz;
+
+
 
 initialsEl.onkeyup = checkForEnter;
