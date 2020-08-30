@@ -15,10 +15,12 @@ var startBtn = document.getElementById("start");
 var initialsEl = document.getElementById("initials");
 var feedbackEl = document.getElementById("feedback");
 var startScreenEl = document.getElementById("start-screen");
+var endScreenEl = document.getElementById("end-screen");
 // var addChoicesBtn = document.createElement("button");
 var currentQuestion;
 var userAnswer;
 // create user score var
+var userScore;
 
 
 // sound effects
@@ -48,10 +50,6 @@ function startQuiz() {
   getQuestion();
 }
 
-// MY OWN FUNCTION I ADDED FOR THE TIMER TO KEEP IT SEPARATE
-// function createTimer(){
-
-// }
 
 function getQuestion() {
   // get current question object from array, 
@@ -61,6 +59,7 @@ function getQuestion() {
   // loop over choices
   for (var i =0; i < currentQuestion.choices.length; i++){
     console.log(currentQuestion.choices[i]);
+
 // create new button for each choice
     var addChoicesBtn = document.createElement("button");
     addChoicesBtn.textContent = currentQuestion.choices[i];
@@ -68,10 +67,7 @@ function getQuestion() {
 
     addChoicesBtn.onclick = questionClick;
   
-    // create new button for each choice --- this is from office hours but idk what it means
-    
-    // attach click event listener to each choice
-    // addChoicesBtn.onclick = questionClick();
+   
   }
 
     // display on the page
@@ -85,28 +81,28 @@ function questionClick(event) {
   if (event.target.textContent === currentQuestion.answer){
 
     // play "right" sound effect
-    var snd = Audio("correct.wav"); 
-      snd.play();
+    sfxWrong.play();
 
       // add 10 points
-
+    (userScore + 10);
 
   }
 
   
- // else 
+ else 
     // penalize time
+    (timeLeft - 10000)
 
     // display new time on page
-
+    timerEl.textContent = time;
     // play "wrong" sound effect
-    var snd = Audio("incorrect.wav"); 
-      snd.play();
+    sfxRight.play();
 
   // flash right/wrong feedback on page for half a second
 
   // move to next question (currentQ I ++)
-  currentQuestionIndex++;
+  choicesEl= "";
+  getQuestion(currentQuestionIndex++);
 
   // check if we've run out of questions
   if (currentQuestionIndex === currentQuestion.length){
@@ -126,15 +122,15 @@ function quizEnd() {
 
 
   // show end screen change classes on div to hide and end screen show 
+  endScreenEl.classList.remove("hide");
 
   // show final score .textContent
+  userScore.textContent
 
   // hide questions section
+  questions.classList.add("hide");
 }
 
-// deleted this because its redundant
-// function clockTick() {
-//   // update time
 
 //   // check if user ran out of time
 // }
@@ -150,6 +146,7 @@ function saveHighscore() {
     // save to localstorage
 
     // redirect to next page scores html
+
 }
 
 function checkForEnter(event) {
@@ -162,7 +159,5 @@ submitBtn.onclick = saveHighscore;
 
 // user clicks button to start quiz
 startBtn.onclick = startQuiz;
-
-
 
 initialsEl.onkeyup = checkForEnter;
