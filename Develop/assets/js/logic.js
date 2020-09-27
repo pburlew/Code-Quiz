@@ -2,7 +2,9 @@
 var currentQuestionIndex = 0;
 var time = questions.length * 2;//CHANGE BACK TO 15
 var timerId;
-var timeLeft;
+var currentQuestion;
+var userScore = 0;
+var timer;
 
 
 // variables to reference DOM elements
@@ -17,10 +19,14 @@ var feedbackEl = document.getElementById("feedback");
 var startScreenEl = document.getElementById("start-screen");
 var endScreenEl = document.getElementById("end-screen");
 // var addChoicesBtn = document.createElement("button");
-var currentQuestion;
-var userAnswer;
+var finalScoreEl = document.getElementById("final-score");
+var userInitialsEl = document.getElementById("initials");
+
+// var userAnswer;
 // create user score var
-var userScore;
+
+var showHighScores;
+
 
 
 // sound effects
