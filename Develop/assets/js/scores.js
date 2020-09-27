@@ -12,10 +12,15 @@ function printHighscores() {
     // display on page
 }
 
+//use local storage to clear the saved high scores
 function clearHighscores() {
-  high
+  highScoresEl.innerHTML = "";
+  localStorage.removeItem("High Scores")
 }
 
-// attache clear event to clear score button
-
 // run printhighscore when page loads
+window.onload = printHighscores;
+
+// attach clear event to clear score button
+clearBtnEl.onclick = (clearHighscores);
+
