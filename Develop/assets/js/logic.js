@@ -46,6 +46,8 @@ function startQuiz() {
 };
 
 
+//need to clean this up
+
 function getQuestion() {
   // get current question object from array, 
   currentQuestion = questions[currentQuestionIndex];

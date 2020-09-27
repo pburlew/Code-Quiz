@@ -1,3 +1,6 @@
+var clearBtnEl = document.querySelector("#clear");
+var highScoresEl = document.querySelector("#highscores");
+
 function printHighscores() {
   // either get scores from localstorage or set to empty array
 
@@ -10,7 +13,7 @@ function printHighscores() {
 }
 
 function clearHighscores() {
-  // (and reload)
+  high
 }
 
 // attache clear event to clear score button
