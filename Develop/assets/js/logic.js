@@ -53,6 +53,10 @@ function getQuestion() {
   currentQuestion = questions[currentQuestionIndex];
   // update title with current question
   questionTitleEl.textContent = currentQuestion.title;
+  
+  //clear old question choices
+  choicesEl.innerHTML = "";
+
   // loop over choices
   for (var i =0; i < currentQuestion.choices.length; i++){
     console.log(currentQuestion.choices[i]);
@@ -60,16 +64,15 @@ function getQuestion() {
 // create new button for each choice
     var addChoicesBtn = document.createElement("button");
     addChoicesBtn.textContent = currentQuestion.choices[i];
-    choicesEl.appendChild(addChoicesBtn);
-
+    addChoicesBtn.className = currentQuestion.choices[i];
+    
+    //event listener
     addChoicesBtn.onclick = questionClick;
-  
-   
-  }
 
     // display on the page
-
-  }
+    choicesEl.appendChild(addChoicesBtn);
+    };
+  };
 
 
 function questionClick(event) {
