@@ -75,39 +75,42 @@ function getQuestion() {
   };
 
 
-function questionClick(event) {
-  console.log(event.target.textContent);
-  // check if user guessed wrong (event.target class activity) 
+function questionClick() {
+  // The stopPropagation() method prevents propagation of the same event from being called.
+  event.stopPropagation();
+
+  // console.log(event.target.textContent);
+  // check if user guessed correctly(event.target class activity)
+  
+  
   if (event.target.textContent === currentQuestion.answer){
 
     // play "right" sound effect
-    sfxWrong.play();
-
-      // add 10 points
-    (userScore + 10);
-
-  }
-
-  
- else 
-    // penalize time
-    (timeLeft - 10000)
-
-    // display new time on page
-    timerEl.textContent = time;
-    // play "wrong" sound effect
     sfxRight.play();
 
-  // flash right/wrong feedback on page for half a second
+      // add 10 points
+    userScore += 10;
+    choicesEl.innerHTML = "YOU'RE CORRECT! 10 POINTS";
+    choicesEl.style.color = "green";
+
+  } else {
+    // penalize time
+    time = time - 10;
+
+    // play "wrong" sound effect
+    sfxWrong.play();
+    choicesEl.innerHTML = "WRONG! LOSE TEN POINTS";
+    choicesEl.style.color = "red";
+  };
+
+  
 
   // move to next question (currentQ I ++)
-  choicesEl= "";
-  getQuestion(currentQuestionIndex++);
+  currentQuestionIndex++;
 
   // check if we've run out of questions
-  if (currentQuestionIndex === currentQuestion.length){
-    // quizEnd
-    quizEnd;
+  if (currentQuestionIndex > questions.length -1){
+    setTimeout(quizEnd, 400);
   }
   // else getQ again
   else{
