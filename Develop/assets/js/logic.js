@@ -1,6 +1,6 @@
 // variables to keep track of quiz state
 var currentQuestionIndex = 0;
-var time = questions.length * 2;//CHANGE BACK TO 15
+var time = questions.length * 15;//CHANGE BACK TO 15
 var timerId;
 var currentQuestion;
 var userScore = 0;
@@ -41,7 +41,7 @@ function startQuiz() {
     questionsEl.className ="start";
 
   // start timer
-  timer = setInterval(clockTick, 1000);
+  timer = setInterval(timerMove, 1000);
   getQuestion();
 };
 
@@ -93,7 +93,7 @@ function questionClick() {
     choicesEl.innerHTML = "YOU'RE CORRECT! 10 POINTS";
     choicesEl.style.color = "green";
 
-  } else {
+  } else { 
     // penalize time
     time = time - 10;
 
@@ -110,52 +110,81 @@ function questionClick() {
 
   // check if we've run out of questions
   if (currentQuestionIndex > questions.length -1){
-    setTimeout(quizEnd, 400);
-  }
-  // else getQ again
-  else{
-    getQuestion;
-  }
-    
-}
+    setTimeout(quizEnd, 700);
+
+  }// else getQ again
+    else{
+    setTimeout(getQuestion, 700);
+  }; 
+};
 
 function quizEnd() {
   // stop timer
-  clearInterval(timerId);
+  clearInterval(timer);
+  timerEl.textContent = 0;
 
-
-  // show end screen change classes on div to hide and end screen show 
-  endScreenEl.classList.remove("hide");
-
-  // show final score .textContent
-  userScore.textContent
+  finalScoreEl.textContent = userScore;
 
   // hide questions section
-  questions.classList.add("hide");
-}
+  questionsEl.className = "hide";
+
+  // show end screen change classes on div to hide and end screen show 
+  endScreenEl.className = "start";
+};
 
 
 //   // check if user ran out of time
-// }
+// 
+
+function timerMove() {
+  time--;
+    timerEl.textContent = time;
+    if (time <= 0){
+      quizEnd();
+    };
+};
 
 function saveHighscore() {
   // get value of input box
+  var userInitials = userInitialsEl.value;
 
   // make sure value wasn't empty
+  if (userInitials === ""){
+    alert("OOPS! Please add initials to compare scores");
+  };
     // get saved scores from localstorage, or if not any, set to empty array
+  showHighScores = JSON.parse(localStorage.getItem("High Scores"));
+
+  if (showHighScores === null){
+    showHighScores = [];
+  };
 
     // format new score object for current user
+  var user ={
+    Initials: userInitials,
+    Score: userScore,
+  };
 
     // save to localstorage
+    showHighScores.push(user);
+
+    localStorage.setItem("High Scores", JSON.stringify(showHighScores));
 
     // redirect to next page scores html
+    window.location.href = "./highscores.html";
+
+    printHighScores();
 
 }
 
 function checkForEnter(event) {
+  event.preventDefault();
+  if (event.keyCode === 13){
+    saveHighscore();
+  };
   // check if event key is enter
     // saveHighscore
-}
+};
 
 // user clicks button to submit initials
 submitBtn.onclick = saveHighscore;

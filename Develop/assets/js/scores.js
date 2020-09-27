@@ -23,8 +23,6 @@ function printHighscores() {
     highScoresEl.appendChild(li);
   };
   
-
-   
 };
 
 //use local storage to clear the saved high scores
