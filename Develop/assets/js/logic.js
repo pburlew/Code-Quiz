@@ -35,26 +35,15 @@ var sfxWrong = new Audio("assets/sfx/incorrect.wav");
 
 function startQuiz() {
   // hide start screen
-    startScreenEl.classList.add("hide");
+    startScreenEl.className ="hide";
 
   // un-hide questions section
-    questionsEl.classList.remove("hide");
+    questionsEl.className ="start";
 
   // start timer
-  timerId = setInterval(function (){
-      time--;
-  
-      if (time === 0) {
-        quizEnd();
-        
-      }
-
-  // show starting time
-  timerEl.textContent = time;
-},1000)
-
+  timer = setInterval(clockTick, 1000);
   getQuestion();
-}
+};
 
 
 function getQuestion() {
