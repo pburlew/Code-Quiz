@@ -1,8 +1,7 @@
 
 Title: Code Quiz Challenge
 
-Deployed Page Link: https://pburlew.github.io/Code-Quiz/
-
+Deployed Page Link: https://pburlew.github.io/Code-Quiz-Challenge/
 Technologies Used:
 Javascript, HTML, DOM selectors, CSS
 
