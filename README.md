@@ -1,7 +1,8 @@
 
-Title: Code Quiz Challenge
+Title: CodeQuizzy
 
-Deployed Page Link: https://pburlew.github.io/Code-Quiz-Challenge/
+Deployed Page Link: https://pburlew.github.io/CodeQuizzy/
+
 Technologies Used:
 Javascript, HTML, DOM selectors, CSS
 
